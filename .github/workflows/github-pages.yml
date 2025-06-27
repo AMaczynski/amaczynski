@@ -39,14 +39,14 @@ jobs:
           JEKYLL_ENV: production
 
       # Opcjonalny krok - jawne skopiowanie assets jeśli Jekyll ich nie kopiuje
-      - name: Copy assets
+      - name: Copy assets to _site
         run: |
           if [ -d "assets" ]; then
             echo "Copying assets directory..."
-            mkdir -p ./assets
-            cp -r assets/* ./assets/
+            mkdir -p ./_site/assets
+            cp -r assets/* ./_site/assets/
             echo "Assets copied successfully:"
-            ls -la ./assets/
+            ls -la ./_site/assets/
           fi
           if [ -d "images" ]; then
             echo "Copying images directory..."
