@@ -37,9 +37,18 @@ jobs:
         run: bundle exec jekyll build --destination ./_site --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
-          # Dodaj swoje zmienne środowiskowe tutaj, np:
-          # CUSTOM_VAR: ${{ secrets.CUSTOM_VAR }}
-          # API_KEY: ${{ secrets.API_KEY }}
+
+      # Opcjonalny krok - jawne skopiowanie assets jeśli Jekyll ich nie kopiuje
+      - name: Copy assets to _site (if needed)
+        run: |
+          if [ -d "assets" ]; then
+            echo "Copying assets directory..."
+            cp -r assets ./_site/
+          fi
+          if [ -d "images" ]; then
+            echo "Copying images directory..."
+            cp -r images ./_site/
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
