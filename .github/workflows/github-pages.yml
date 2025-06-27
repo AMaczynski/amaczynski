@@ -9,8 +9,14 @@ jobs:
   github-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4  # Zaktualizowana wersja
       - uses: helaili/jekyll-action@v2
         with:
-          token: $CUSTOM_GITHUB_TOKEN
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}  # Poprawna składnia
           target_branch: gh-pages
+          pre_build_commands: |
+            gem update --system
+            bundle config set --local deployment 'false'
+            bundle config set --local path 'vendor/bundle'
+            # Alternatywnie, jeśli powyższe nie zadziała:
+            # gem install ffi -v '~> 1.16.0'
