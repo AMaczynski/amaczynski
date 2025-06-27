@@ -18,12 +18,12 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Mój blog lol
+title: Pendulum Driven Development
 email: amaczynski@mail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  PDD is a new term for a software development methodology that combines the principles of everything I have learned so far in my career. 
+  It is a blend of my experiences with various architectures, design patterns, and best practices that I have encountered over the years.
+  Don't take it too seriously, it's just a blog of a random developer who has been working in the industry for some time.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  amaczynskki
@@ -52,9 +52,10 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
 # jekyll-paginate
-#paginate: 5
-#paginate_path: "/blog/page:num/"
+paginate: 5
+paginate_path: "/blog/page:num/"
 
 # jekyll-tagging (optional)
 tag_permalink_style: pretty
@@ -62,6 +63,8 @@ tag_page_layout: tag_page
 tag_page_dir: tag
 
 dash:
+  avatar_source: local
+  avatar_path: /assets/me.png
   date_format: "%b %-d, %Y"
 
   disqus:
@@ -70,5 +73,5 @@ dash:
   # generate social links in footer
   # supported colors: green, red, orange, blue, cyan, pink, teal, yellow, indigo, purple
   social_links:
-    - url: https://github.com/amaczynski
-      icon: github-square
+    - url: https://www.linkedin.com/in/amaczynski/
+      icon: linkedin
