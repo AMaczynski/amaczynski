@@ -5,18 +5,52 @@ on:
     branches:
       - main
 
+# Nadaj uprawnienia GITHUB_TOKEN
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Pozwól tylko jeden deployment na raz
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  github-pages:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # Zaktualizowana wersja
-      - uses: helaili/jekyll-action@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}  # Poprawna składnia
-          target_branch: gh-pages
-          pre_build_commands: |
-            gem update --system
-            bundle config set --local deployment 'false'
-            bundle config set --local path 'vendor/bundle'
-            # Alternatywnie, jeśli powyższe nie zadziała:
-            # gem install ffi -v '~> 1.16.0'
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --destination ./_site --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+          # Dodaj swoje zmienne środowiskowe tutaj, np:
+          # CUSTOM_VAR: ${{ secrets.CUSTOM_VAR }}
+          # API_KEY: ${{ secrets.API_KEY }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
