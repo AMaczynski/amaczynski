@@ -39,15 +39,19 @@ jobs:
           JEKYLL_ENV: production
 
       # Opcjonalny krok - jawne skopiowanie assets jeśli Jekyll ich nie kopiuje
-      - name: Copy assets to _site (if needed)
+      - name: Copy assets to _site
         run: |
           if [ -d "assets" ]; then
             echo "Copying assets directory..."
-            cp -r assets ./_site/
+            mkdir -p ./_site/assets
+            cp -r assets/* ./_site/assets/
+            echo "Assets copied successfully:"
+            ls -la ./_site/assets/
           fi
           if [ -d "images" ]; then
             echo "Copying images directory..."
-            cp -r images ./_site/
+            mkdir -p ./_site/images
+            cp -r images/* ./_site/images/
           fi
 
       - name: Upload artifact

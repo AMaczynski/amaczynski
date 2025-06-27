@@ -24,8 +24,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   PDD is a new term for a software development methodology that combines the principles of everything I have learned so far in my career. 
   It is a blend of my experiences with various architectures, design patterns, and best practices that I have encountered over the years.
   Don't take it too seriously, it's just a blog of a random developer who has been working in the industry for some time.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/amaczynski" # the subpath of your site, e.g. /blog
+url: "https://amaczynski.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  amaczynskki
 
 # Build settings
